@@ -24,12 +24,12 @@ export default function Scripture(props) {
       }
   return (
     <View>
-        <Text style={styles.title}>{props.item.title}</Text>
+        <Text style={styles.title}>Scripture</Text>
       <View>
       <FlatList
-        data={props.item.scripture}
+        data={props.item.scripture.scripture}
         renderItem={({item})=>
-            <Item text={item.text}/>
+            <Item text={item.scripture_verse}/>
         }
         // keyExtractor={item => item.id}
       />

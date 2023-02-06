@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import Home from './Screens/Home';
+// import Home from './Screens/Home';
 import MorningPrayerScreen from './Screens/MorningPrayerScreen';
 import MiddayPrayerScreen from './Screens/MiddayPrayerScreen';
 import NightPrayerScreen from './Screens/NightPrayerScreen';
@@ -32,13 +32,12 @@ export default function App() {
     <NavigationContainer >
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>} screenOptions=
       {{headerShown:false,
-        drawerActiveBackgroundColor:'grey',
+        // drawerActiveBackgroundColor:'grey',
+
         drawerActiveTintColor:'#fff',
         drawerInactiveTintColor:'#fff',
-      drawerLabelStyle:{marginLeft:-25,color:'#fff',fontSize:15,fontFamily:'AlegreyaSans-Medium'}}}>
-        <Drawer.Screen name="Home" component={Home} options={{ drawerLabel: 'Home', drawerIcon:({color})=>(
-          <Ionicons name="home" size={25} color={color} />
-   ) }}/>
+        drawerLabelStyle:{marginLeft:-25,color:'#fff',fontSize:15,fontFamily:'AlegreyaSans-Medium'}}}>
+
         <Drawer.Screen name="MorningPrayerScreen"
          component={MorningPrayerScreen}
          options={{ drawerLabel: 'Morning Prayer', drawerIcon:({color})=>(

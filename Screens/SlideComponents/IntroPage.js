@@ -4,7 +4,9 @@ import { useFonts } from 'expo-font';
 
 export default function IntroPage(props) {
     const datedis = new Date();
-    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
     const [loaded] = useFonts({
         'AlegreyaSans-Bold': require('../../assets/fonts/AlegreyaSans-Bold.ttf'),
       });
@@ -18,7 +20,7 @@ export default function IntroPage(props) {
       <View style={styles.titleWrapper}>
         <Text style={styles.title}><Text style={styles.prayer_underline}>Pra</Text>y<Text style={styles.prayer_underline}>er</Text></Text>
       </View>
-      <Text style={styles.daytext}>{days[datedis.getDay()]+","+datedis.getDate()+","+datedis.getFullYear()}</Text>
+      <Text style={styles.daytext}>{days[datedis.getDay()]+", "+months[datedis.getMonth()]+" "+datedis.getDate()}</Text>
     </View>
   )
 }

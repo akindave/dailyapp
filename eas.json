@@ -15,6 +15,11 @@
         "buildType": "apk"
       }
     },
+    "prev": {
+        "ios": {
+          "simulator": true
+        }
+    },
     "production": {
       "ios": {
         "resourceClass": "m1-medium"

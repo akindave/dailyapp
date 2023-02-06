@@ -4,9 +4,9 @@ import { useFonts } from 'expo-font';
 
 export default function Confession(props) {
     const [loaded] = useFonts({
-        'AlegreyaSans-ExtraBold': require('../../assets/fonts/AlegreyaSans-ExtraBold.ttf'),
-        'AlegreyaSans-BoldItalic': require('../../assets/fonts/AlegreyaSans-BoldItalic.ttf'),
-        'AlegreyaSans-Light': require('../../assets/fonts/AlegreyaSans-Light.ttf'),
+        'OpenSans-ExtraBold': require('../../assets/fonts/OpenSans-ExtraBold.ttf'),
+        'OpenSans-BoldItalic': require('../../assets/fonts/OpenSans-BoldItalic.ttf'),
+        'OpenSans-Medium': require('../../assets/fonts/OpenSans-Medium.ttf'),
       });
 
       if (!loaded) {
@@ -14,19 +14,19 @@ export default function Confession(props) {
       }
   return (
     <View>
-      <Text style={styles.title}>{props.item.title}</Text>
-      <Text style={styles.content}>{props.item.content}</Text>
+      <Text style={styles.title}>Confession</Text>
+      <Text style={styles.content}>{props.item.confession.content[0].confession}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     content:{
-        fontFamily:'AlegreyaSans-Light',
-        fontSize:23,
+        fontFamily:'OpenSans-Medium',
+        fontSize:16,
         color:'#fff',
         marginTop:15,
         // lineHeight: 26
       },
-      title:{color:'#fff',fontSize:50,fontFamily:'AlegreyaSans-ExtraBold'}
+      title:{color:'#fff',fontSize:50,fontFamily:'OpenSans-ExtraBold'}
 })

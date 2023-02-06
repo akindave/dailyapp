@@ -5,23 +5,23 @@ import React from 'react'
 const Item = ({text,verse,scriptureStyle}) => (
     <View style={{marginTop:15}}>
       <Text style={scriptureStyle}>{text}</Text>
-      <Text style={{marginLeft:30,color:'#fff',fontSize:17}}>{verse}</Text>
+      <Text style={{marginLeft:30,color:'#fff',fontSize:17,marginTop:-20}}>{verse}</Text>
     </View>
   );
 
 export default function OpeningPrayer(props) {
   return (
     <View>
-      <Text style={props.titlestyles}>{props.item.title}</Text>
-      <Text style={props.subtitleStyle}>{props.item.subtitle}</Text>
-      <FlatList
-        data={props.item.scripture}
+      <Text style={props.titlestyles}>Opening Prayer</Text>
+      {props.item.opening_prayer.title && (<Text style={props.subtitleStyle}>{props.item.opening_prayer.title}</Text>) }
+      {props.item.opening_prayer.content && (<FlatList
+        data={props.item.opening_prayer.content}
         renderItem={({item})=>
-            <Item verse={item.title} text={item.content} scriptureStyle={props.scriptureStyle}/>
+            <Item verse={item.verse} text={item.scripture} scriptureStyle={props.scriptureStyle}/>
         }
         keyExtractor={item => item.id}
-      />
-      <Text style={props.contentStyle}>{props.item.content}</Text>
+      />)}
+      <Text style={props.contentStyle}>{props.item.opening_prayer.prayers}</Text>
       {/* <Text>{props.item.subtitle}</Text> */}
     </View>
   )
