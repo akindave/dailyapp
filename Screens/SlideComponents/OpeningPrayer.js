@@ -5,7 +5,7 @@ import React from 'react'
 const Item = ({text,verse,scriptureStyle}) => (
     <View style={{marginTop:15}}>
       <Text style={scriptureStyle}>{text}</Text>
-      <Text style={{marginLeft:30,color:'#fff',fontSize:17,marginTop:-20}}>{verse}</Text>
+      <Text style={{marginLeft:30,color:'#fff',fontSize:17,marginTop:-30}}>{verse}</Text>
     </View>
   );
 

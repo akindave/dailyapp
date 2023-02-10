@@ -3,7 +3,9 @@ import React, { useRef, useState,useEffect } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Carousel, {Pagination} from 'react-native-new-snap-carousel';
 import { useFonts } from 'expo-font';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 // this are the externall component
 import IntroPage from './SlideComponents/IntroPage';
 import OpeningPrayer from './SlideComponents/OpeningPrayer';
@@ -11,6 +13,7 @@ import Confession from './SlideComponents/Confession';
 import Scripture from './SlideComponents/Scripture';
 import ClosingPrayer from './SlideComponents/ClosingPrayer';
 import LordPrayer from './SlideComponents/LordPrayer';
+import { UseGetAllMiddayPrayer } from './hooks/getAllMiddayPrayer';
 
 const morningPrayerImage = require('../assets/img/bg.jpg');
 
@@ -68,11 +71,13 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function MiddayPrayerScreen({navigation}) {
 
-
+  const {data,isLoading} = UseGetAllMiddayPrayer();
   const isCarousel = useRef(null);
   const [index,setIndex] = useState(0);
 
-  const [data, setData] = useState();
+
+
+  const [dataP, setDataP] = useState();
   const [loading, setLoading] = useState(true);
 
   const renderItem = ({item})=>{
@@ -117,8 +122,12 @@ export default function MiddayPrayerScreen({navigation}) {
     // console.error(error);
   }
   };
+  const checkForAllData = () => {
+    isLoading ? '' : data ? SplashScreen.hideAsync() : ''
+  }
 
   useEffect(() => {
+    checkForAllData();
     fetchData();
   }, []);
 
@@ -146,7 +155,7 @@ export default function MiddayPrayerScreen({navigation}) {
         <Carousel
                     layout={"default"}
                     ref={isCarousel}
-                    data={data}
+                    data={data.data}
                     sliderWidth={windowWidth}
                     itemWidth={windowWidth-35}
                     renderItem={renderItem}
@@ -156,7 +165,7 @@ export default function MiddayPrayerScreen({navigation}) {
         </ScrollView>
         <View style={styles.dotWrapper}>
         <Pagination
-                    dotsLength={data.length}
+                    dotsLength={data.data.length}
                     activeDotIndex={index}
                     dotStyle={{
                       width:10,

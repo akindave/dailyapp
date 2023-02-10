@@ -11,10 +11,12 @@ import Confession from './SlideComponents/Confession';
 import Scripture from './SlideComponents/Scripture';
 import ClosingPrayer from './SlideComponents/ClosingPrayer';
 import LordPrayer from './SlideComponents/LordPrayer';
+import * as SplashScreen from 'expo-splash-screen';
+import { UseGetAllMorningPrayer } from './hooks/getAllMorningPrayer';
 
 
 const morningPrayerImage = require('../assets/img/pathway.jpg');
-
+SplashScreen.preventAutoHideAsync();
 // const [backId,setBackId] = useState(0);
 // const data = [
 //   {
@@ -69,12 +71,14 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function MorningPrayerScreen({navigation}) {
 
-
+  const {data,isLoading} = UseGetAllMorningPrayer();
 
   const isCarousel = useRef(null);
   const [index,setIndex] = useState(0);
 
-  const [data, setData] = useState();
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [dataP, setDataP] = useState();
+
   const [loading, setLoading] = useState(true);
 
   const renderItem = ({item})=>{
@@ -115,17 +119,25 @@ export default function MorningPrayerScreen({navigation}) {
     const arr = data.data;
     data.data.unshift({"first":"banner"});
     // console.log(data.data);
-    setData(data.data);
+    setDataP(data.data);
     setLoading(false);
   } catch (error) {
     // console.error(error);
   }
   };
 
+  if(!loading){
+    SplashScreen.hideAsync();
+  }
+
+  const checkForAllData = () => {
+    isLoading ? '' : data ? SplashScreen.hideAsync() : '';
+  }
+
   useEffect(() => {
+    checkForAllData();
     fetchData();
   }, []);
-
 
 
   const [loaded] = useFonts({
@@ -133,6 +145,7 @@ export default function MorningPrayerScreen({navigation}) {
     'AlegreyaSans-BoldItalic': require('../assets/fonts/AlegreyaSans-BoldItalic.ttf'),
     'AlegreyaSans-Light': require('../assets/fonts/AlegreyaSans-Light.ttf'),
   });
+
 
   if (!loaded) {
     return null;
@@ -143,16 +156,15 @@ export default function MorningPrayerScreen({navigation}) {
   return (
     <SafeAreaView style={{flex:1}}>
     <ImageBackground source={morningPrayerImage} blurRadius={index == '0' ? 0 : 1} resizeMode="cover" style={[styles.image]}>
-
+    {/* {data ? setLoading(false) : ''} */}
     {data &&
       (<View  style={[styles.container,{backgroundColor: index=='0' ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.5)'}]}>
         <ScrollView>
         <View style={{marginTop:150,flex:1}}>
-
         <Carousel
                     layout={"default"}
                     ref={isCarousel}
-                    data={data}
+                    data={data.data}
                     sliderWidth={windowWidth}
                     itemWidth={windowWidth-35}
                     renderItem={renderItem}
@@ -162,7 +174,7 @@ export default function MorningPrayerScreen({navigation}) {
         </ScrollView>
         <View style={styles.dotWrapper}>
         <Pagination
-                    dotsLength={data.length}
+                    dotsLength={data.data.length}
                     activeDotIndex={index}
                     dotStyle={{
                       width:10,
